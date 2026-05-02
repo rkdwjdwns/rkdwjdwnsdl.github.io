@@ -255,6 +255,20 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
 /* grade colors */
 .gc-normal{color:#999}.gc-rare{color:var(--blue)}.gc-epic{color:var(--purple)}.gc-legend{color:var(--gold)}.gc-myth{color:#ff66aa}
+/* 6-grade inventory colors */
+.ri-n{background:#D3D1C7;color:#444441}
+.ri-r{background:#B5D4F4;color:#0C447C}
+.ri-u{background:#c5c5f0;color:#2a2a8a}
+.ri-e{background:#CECBF6;color:#3C3489}
+.ri-l{background:#FAC775;color:#633806}
+.ri-m{background:#F7C1C1;color:#791F1F}
+.grade-n{border-color:#888!important}
+.grade-r{border-color:#4488cc!important}
+.grade-u{border-color:#5555cc!important}
+.grade-e{border-color:#8844cc!important}
+.grade-l{border-color:#cc8800!important}
+.grade-legend{border-color:#cc2200!important}
+.inv-card-grade{display:inline-block;font-size:9px;font-weight:600;padding:2px 7px;border-radius:10px;border:0.5px solid;margin-bottom:4px}
 </style>
 </head>
 <body>
@@ -525,32 +539,20 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 
   <!-- 뽑기 -->
   <div class="tab-content" id="tab-gacha">
-    <div class="gacha-grid">
-      <div class="gacha-card">
-        <div class="gacha-icon">⚔️</div>
-        <div class="gacha-name">무기 가챠</div>
-        <div class="gacha-cost">💎 100개 / 회</div>
-        <div class="rate-row"><span>일반</span><span style="color:#888">40%</span></div>
-        <div class="rate-row"><span>고급</span><span style="color:var(--blue)">30%</span></div>
-        <div class="rate-row"><span>희귀</span><span style="color:var(--purple)">20%</span></div>
-        <div class="rate-row"><span>영웅</span><span style="color:var(--gold)">8%</span></div>
-        <div class="rate-row"><span>전설</span><span style="color:var(--red)">2%</span></div>
-        <button class="pull-btn pb1" onclick="pull('weapon',1)">1회 뽑기 💎100</button>
-        <button class="pull-btn pb2" onclick="pull('weapon',10)">10회 뽑기 💎950</button>
-        <div class="pity-bar-wrap">
-          <div class="pity-label"><span>천장</span><span><span id="pity-weapon">0</span>/100</span></div>
-          <div class="pity-bar"><div class="pity-fill" id="pf-weapon" style="width:0%"></div></div>
-        </div>
-      </div>
+    <div class="gacha-grid" id="gacha-grid-main">
+      <!-- 직업별 무기 가챠 (동적 렌더) -->
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px" id="gacha-grid-other">
       <div class="gacha-card">
         <div class="gacha-icon">🛡️</div>
         <div class="gacha-name">방어구 가챠</div>
         <div class="gacha-cost">💎 100개 / 회</div>
-        <div class="rate-row"><span>일반</span><span style="color:#888">40%</span></div>
-        <div class="rate-row"><span>고급</span><span style="color:var(--blue)">30%</span></div>
-        <div class="rate-row"><span>희귀</span><span style="color:var(--purple)">20%</span></div>
-        <div class="rate-row"><span>영웅</span><span style="color:var(--gold)">8%</span></div>
-        <div class="rate-row"><span>전설</span><span style="color:var(--red)">2%</span></div>
+        <div class="rate-row"><span>노말</span><span style="color:#888">35%</span></div>
+        <div class="rate-row"><span>레어</span><span style="color:#4488cc">25%</span></div>
+        <div class="rate-row"><span>희귀</span><span style="color:#5555cc">18%</span></div>
+        <div class="rate-row"><span>에픽</span><span style="color:var(--purple)">12%</span></div>
+        <div class="rate-row"><span>유니크</span><span style="color:var(--gold)">7%</span></div>
+        <div class="rate-row"><span>레전드</span><span style="color:var(--red)">3%</span></div>
         <button class="pull-btn pb1" onclick="pull('armor',1)">1회 뽑기 💎100</button>
         <button class="pull-btn pb2" onclick="pull('armor',10)">10회 뽑기 💎950</button>
         <div class="pity-bar-wrap">
@@ -562,12 +564,12 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         <div class="gacha-icon">✨</div>
         <div class="gacha-name">통합 가챠</div>
         <div class="gacha-cost">💎 150개 / 회</div>
-        <div class="rate-row"><span>일반</span><span style="color:#888">35%</span></div>
-        <div class="rate-row"><span>고급</span><span style="color:var(--blue)">28%</span></div>
-        <div class="rate-row"><span>희귀</span><span style="color:var(--purple)">22%</span></div>
-        <div class="rate-row"><span>영웅</span><span style="color:var(--gold)">10%</span></div>
-        <div class="rate-row"><span>전설</span><span style="color:var(--red)">4%</span></div>
-        <div class="rate-row"><span style="color:#ff66aa">신화</span><span style="color:#ff66aa">1%</span></div>
+        <div class="rate-row"><span>노말</span><span style="color:#888">30%</span></div>
+        <div class="rate-row"><span>레어</span><span style="color:#4488cc">25%</span></div>
+        <div class="rate-row"><span>희귀</span><span style="color:#5555cc">18%</span></div>
+        <div class="rate-row"><span>에픽</span><span style="color:var(--purple)">14%</span></div>
+        <div class="rate-row"><span>유니크</span><span style="color:var(--gold)">8%</span></div>
+        <div class="rate-row"><span>레전드</span><span style="color:var(--red)">5%</span></div>
         <button class="pull-btn pb1" onclick="pull('combined',1)">1회 뽑기 💎150</button>
         <button class="pull-btn pb2" onclick="pull('combined',10)">10회 뽑기 💎1400</button>
         <div class="pity-bar-wrap">
@@ -576,14 +578,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
         </div>
       </div>
     </div>
-    <div class="pity-note">50회 → 영웅 보장 | 100회 → 전설 보장 | 10연차 → 희귀 이상 1개 보장 | 뽑은 아이템 클릭 → 인벤토리로 이동</div>
+    <div class="pity-note">50회 → 에픽 보장 | 100회 → 유니크 이상 보장 | 10연차 → 희귀 이상 1개 보장</div>
     <div class="result-area">
       <div class="result-title" id="result-title">뽑기 결과가 여기에 표시됩니다</div>
       <div class="result-items" id="result-items"></div>
     </div>
   </div>
 
-  <!-- 회복 -->
+<!-- 회복 -->
   <div class="tab-content" id="tab-heal">
     <div class="heal-status">
       <div class="bar-label" style="margin-bottom:5px"><span style="color:var(--red);font-weight:500">HP</span><span id="heal-hp-txt">100/100</span></div>
@@ -643,9 +645,9 @@ const db=getFirestore(app);
 
 /* ── JOBS ── */
 const JOBS={
-  warrior:{name:'검사',icon:'⚔️',color:'#4466dd',desc:'검과 방패를 다루는 올라운더 전사. 높은 체력과 방어력.',stats:{str:14,agi:8,int:3,vit:14,def:8,luk:5},autoKey:['vit','str','def'],allowed:['검','대검','방패','단검','모자','상의','하의','신발','갑옷'],startWeapon:{name:'낡은 검',grade:'일반',slot:'weapon',atk:5,id:'start_w'}},
-  mage:{name:'마법사',icon:'🪄',color:'#9944cc',desc:'마법구를 다루는 마법 특화 직업. 강력한 마법 공격.',stats:{str:4,agi:6,int:16,vit:8,def:4,luk:6},autoKey:['int','luk','vit'],allowed:['마법구','마법서','모자','상의','하의','신발','갑옷'],startWeapon:{name:'낡은 마법구',grade:'일반',slot:'weapon',atk:5,id:'start_w'}},
-  archer:{name:'궁수',icon:'🏹',color:'#228844',desc:'활을 다루는 민첩한 원거리 딜러. 높은 속도와 회피율.',stats:{str:8,agi:16,int:6,vit:8,def:5,luk:11},autoKey:['agi','luk','str'],allowed:['활','단검','부적','모자','상의','하의','신발','갑옷'],startWeapon:{name:'낡은 활',grade:'일반',slot:'weapon',atk:5,id:'start_w'}}
+  warrior:{name:'검사',icon:'⚔️',color:'#4466dd',desc:'검과 방패를 다루는 올라운더 전사. 높은 체력과 방어력.',stats:{str:14,agi:8,int:3,vit:14,def:8,luk:5},autoKey:['vit','str','def'],allowed:['검','대검','방패','단검','모자','상의','하의','신발','갑옷'],startWeapon:{name:'낡은 검',grade:'normal',slot:'weapon',atk:5,shape:'sword',allowedJobs:['warrior'],id:'start_w'}},
+  mage:{name:'마법사',icon:'🪄',color:'#9944cc',desc:'마법구를 다루는 마법 특화 직업. 강력한 마법 공격.',stats:{str:4,agi:6,int:16,vit:8,def:4,luk:6},autoKey:['int','luk','vit'],allowed:['마법구','마법서','모자','상의','하의','신발','갑옷'],startWeapon:{name:'낡은 마법구',grade:'normal',slot:'weapon',atk:5,shape:'orb',allowedJobs:['mage'],id:'start_w'}},
+  archer:{name:'궁수',icon:'🏹',color:'#228844',desc:'활을 다루는 민첩한 원거리 딜러. 높은 속도와 회피율.',stats:{str:8,agi:16,int:6,vit:8,def:5,luk:11},autoKey:['agi','luk','str'],allowed:['활','단검','부적','모자','상의','하의','신발','갑옷'],startWeapon:{name:'낡은 활',grade:'normal',slot:'weapon',atk:5,shape:'bow',allowedJobs:['archer'],id:'start_w'}}
 };
 const JOB_COLOR={warrior:'#6688ff',mage:'#aa55ee',archer:'#55bb55'};
 
@@ -669,23 +671,121 @@ const ITEM_DEFS={
 const SLOT_ICONS={weapon:'⚔️',sub:'🗡️',hat:'🪖',top:'🥋',bottom:'👖',shoes:'👟',armor:'🦺'};
 const SLOT_LABELS={weapon:'무기',sub:'보조',hat:'모자',top:'상의',bottom:'하의',shoes:'신발',armor:'갑옷'};
 
+/* ── 6-GRADE SYSTEM ── */
+const GRADE_DEFS=[
+  {id:'normal', name:'노말',  cls:'ri-n', color:'#999999', bg:'rgba(153,153,153,0.15)', prob_w:[.35,.25,.18,.12,.07,.03][0], icon:'⚪'},
+  {id:'rare',   name:'레어',  cls:'ri-r', color:'#4488cc', bg:'rgba(68,136,204,0.15)',  icon:'🔵'},
+  {id:'uncommon',name:'희귀', cls:'ri-u', color:'#5555cc', bg:'rgba(85,85,204,0.15)',   icon:'🔷'},
+  {id:'epic',   name:'에픽',  cls:'ri-e', color:'#8844cc', bg:'rgba(136,68,204,0.15)',  icon:'🟣'},
+  {id:'unique', name:'유니크',cls:'ri-l', color:'#cc8800', bg:'rgba(204,136,0,0.15)',   icon:'🟡'},
+  {id:'legend', name:'레전드',cls:'ri-m', color:'#cc2200', bg:'rgba(204,34,0,0.15)',    icon:'🔴'},
+];
+const GRADE_IDS=GRADE_DEFS.map(g=>g.id);
+const GRADE_BY_ID={};GRADE_DEFS.forEach(g=>GRADE_BY_ID[g.id]=g);
+
+/* Weapon pools per job — 6 grades each */
+const WARRIOR_WEAPONS=[
+  {name:'낡은 검',       grade:'normal',  slot:'weapon',atk:5,  allowedJobs:['warrior'],shape:'sword'},
+  {name:'철 검',         grade:'rare',    slot:'weapon',atk:14, allowedJobs:['warrior'],shape:'sword'},
+  {name:'강철 검',       grade:'uncommon',slot:'weapon',atk:22, allowedJobs:['warrior'],shape:'sword'},
+  {name:'기사 검',       grade:'epic',    slot:'weapon',atk:32, allowedJobs:['warrior'],shape:'sword'},
+  {name:'성검 엑스칼리버',grade:'unique', slot:'weapon',atk:50, allowedJobs:['warrior'],shape:'sword'},
+  {name:'신화의 검',     grade:'legend',  slot:'weapon',atk:80, allowedJobs:['warrior'],shape:'sword'},
+  {name:'낡은 대검',     grade:'normal',  slot:'weapon',atk:7,  allowedJobs:['warrior'],shape:'greatsword'},
+  {name:'철 대검',       grade:'rare',    slot:'weapon',atk:18, allowedJobs:['warrior'],shape:'greatsword'},
+  {name:'강철 대검',     grade:'uncommon',slot:'weapon',atk:28, allowedJobs:['warrior'],shape:'greatsword'},
+  {name:'기사 대검',     grade:'epic',    slot:'weapon',atk:40, allowedJobs:['warrior'],shape:'greatsword'},
+  {name:'용제의 대검',   grade:'unique',  slot:'weapon',atk:60, allowedJobs:['warrior'],shape:'greatsword'},
+  {name:'파멸의 대검',   grade:'legend',  slot:'weapon',atk:95, allowedJobs:['warrior'],shape:'greatsword'},
+];
+const MAGE_WEAPONS=[
+  {name:'낡은 마법구',   grade:'normal',  slot:'weapon',atk:5,  allowedJobs:['mage'],shape:'orb'},
+  {name:'수정 마법구',   grade:'rare',    slot:'weapon',atk:15, allowedJobs:['mage'],shape:'orb'},
+  {name:'마법 마법구',   grade:'uncommon',slot:'weapon',atk:24, allowedJobs:['mage'],shape:'orb'},
+  {name:'현자의 마법구', grade:'epic',    slot:'weapon',atk:36, allowedJobs:['mage'],shape:'orb'},
+  {name:'용왕의 마법구', grade:'unique',  slot:'weapon',atk:55, allowedJobs:['mage'],shape:'orb'},
+  {name:'신의 마법구',   grade:'legend',  slot:'weapon',atk:90, allowedJobs:['mage'],shape:'orb'},
+];
+const ARCHER_WEAPONS=[
+  {name:'낡은 활',       grade:'normal',  slot:'weapon',atk:5,  spd:2,allowedJobs:['archer'],shape:'bow'},
+  {name:'나무 활',       grade:'rare',    slot:'weapon',atk:14, spd:3,allowedJobs:['archer'],shape:'bow'},
+  {name:'강화 활',       grade:'uncommon',slot:'weapon',atk:22, spd:5,allowedJobs:['archer'],shape:'bow'},
+  {name:'명궁의 활',     grade:'epic',    slot:'weapon',atk:34, spd:7,allowedJobs:['archer'],shape:'bow'},
+  {name:'엘프의 활',     grade:'unique',  slot:'weapon',atk:52, spd:10,allowedJobs:['archer'],shape:'bow'},
+  {name:'천공의 활',     grade:'legend',  slot:'weapon',atk:85, spd:15,allowedJobs:['archer'],shape:'bow'},
+];
+
+/* Armor pool — 6 grades */
+const ARMOR_POOL_NEW=[
+  // hat
+  {name:'낡은 투구',   grade:'normal',  slot:'hat',   def:2,  shape:'helmet'},
+  {name:'철 투구',     grade:'rare',    slot:'hat',   def:5,  shape:'helmet'},
+  {name:'강철 투구',   grade:'uncommon',slot:'hat',   def:9,  shape:'helmet'},
+  {name:'기사 투구',   grade:'epic',    slot:'hat',   def:14, shape:'helmet'},
+  {name:'왕의 투구',   grade:'unique',  slot:'hat',   def:22, shape:'helmet'},
+  {name:'신의 투구',   grade:'legend',  slot:'hat',   def:35, shape:'helmet'},
+  // top
+  {name:'낡은 상의',   grade:'normal',  slot:'top',   def:3,  hp:5,  shape:'armor'},
+  {name:'철 상의',     grade:'rare',    slot:'top',   def:7,  hp:10, shape:'armor'},
+  {name:'강철 상의',   grade:'uncommon',slot:'top',   def:12, hp:18, shape:'armor'},
+  {name:'기사 갑옷',   grade:'epic',    slot:'top',   def:20, hp:30, shape:'armor'},
+  {name:'왕의 갑옷',   grade:'unique',  slot:'top',   def:32, hp:50, shape:'armor'},
+  {name:'신의 갑옷',   grade:'legend',  slot:'top',   def:50, hp:80, shape:'armor'},
+  // bottom
+  {name:'낡은 하의',   grade:'normal',  slot:'bottom',def:2,  spd:1, shape:'legs'},
+  {name:'철 하의',     grade:'rare',    slot:'bottom',def:5,  spd:2, shape:'legs'},
+  {name:'강철 하의',   grade:'uncommon',slot:'bottom',def:8,  spd:3, shape:'legs'},
+  {name:'기사 하의',   grade:'epic',    slot:'bottom',def:13, spd:5, shape:'legs'},
+  {name:'왕의 하의',   grade:'unique',  slot:'bottom',def:20, spd:7, shape:'legs'},
+  {name:'신의 하의',   grade:'legend',  slot:'bottom',def:32, spd:10,shape:'legs'},
+  // shoes
+  {name:'낡은 신발',   grade:'normal',  slot:'shoes', spd:2,  shape:'boots'},
+  {name:'철 신발',     grade:'rare',    slot:'shoes', spd:4,  shape:'boots'},
+  {name:'강화 신발',   grade:'uncommon',slot:'shoes', spd:7,  def:3, shape:'boots'},
+  {name:'기사 신발',   grade:'epic',    slot:'shoes', spd:10, def:5, shape:'boots'},
+  {name:'바람의 신발', grade:'unique',  slot:'shoes', spd:15, def:8, shape:'boots'},
+  {name:'신의 신발',   grade:'legend',  slot:'shoes', spd:22, def:12,shape:'boots'},
+  // armor (chest)
+  {name:'낡은 갑옷',   grade:'normal',  slot:'armor', def:4,  hp:8,  shape:'chest'},
+  {name:'철 갑옷',     grade:'rare',    slot:'armor', def:10, hp:18, shape:'chest'},
+  {name:'강철 갑옷',   grade:'uncommon',slot:'armor', def:16, hp:28, shape:'chest'},
+  {name:'기사 흉갑',   grade:'epic',    slot:'armor', def:25, hp:45, shape:'chest'},
+  {name:'왕의 흉갑',   grade:'unique',  slot:'armor', def:40, hp:70, shape:'chest'},
+  {name:'신의 흉갑',   grade:'legend',  slot:'armor', def:65, hp:110,shape:'chest'},
+  // sub
+  {name:'낡은 방패',   grade:'normal',  slot:'sub',   def:4,  allowedJobs:['warrior'],shape:'shield'},
+  {name:'철 방패',     grade:'rare',    slot:'sub',   def:9,  allowedJobs:['warrior'],shape:'shield'},
+  {name:'강철 방패',   grade:'uncommon',slot:'sub',   def:15, allowedJobs:['warrior'],shape:'shield'},
+  {name:'기사 방패',   grade:'epic',    slot:'sub',   def:24, allowedJobs:['warrior'],shape:'shield'},
+  {name:'왕의 방패',   grade:'unique',  slot:'sub',   def:38, allowedJobs:['warrior'],shape:'shield'},
+  {name:'신의 방패',   grade:'legend',  slot:'sub',   def:60, allowedJobs:['warrior'],shape:'shield'},
+];
+
+const COMBINED_POOL_NEW=[...WARRIOR_WEAPONS,...MAGE_WEAPONS,...ARCHER_WEAPONS,...ARMOR_POOL_NEW];
+
+/* Grade probability tables */
+const WEAPON_GRADE_PROBS={
+  normal:.35,rare:.25,uncommon:.18,epic:.12,unique:.07,legend:.03
+};
+const ARMOR_GRADE_PROBS={
+  normal:.35,rare:.25,uncommon:.18,epic:.12,unique:.07,legend:.03
+};
+const COMBINED_GRADE_PROBS={
+  normal:.30,rare:.25,uncommon:.18,epic:.14,unique:.08,legend:.05
+};
+
+function pickGradeNew(probs,forceLegend,forceEpic){
+  if(forceLegend){const hi=['unique','legend'];return hi[Math.floor(Math.random()*hi.length)];}
+  if(forceEpic){const mid=['uncommon','epic','unique','legend'];return mid[Math.floor(Math.random()*mid.length)];}
+  let r=Math.random(),cum=0;
+  for(const[g,p] of Object.entries(probs)){cum+=p;if(r<cum)return g;}
+  return 'normal';
+}
+
 /* ── GACHA ITEMS ── */
-const WEAPON_POOL=[
-  {name:'검',slot:'weapon',atk:12},{name:'대검',slot:'weapon',atk:20},{name:'창',slot:'weapon',atk:15,spd:3},
-  {name:'활',slot:'weapon',atk:13,spd:5},{name:'마법구',slot:'weapon',atk:18},
-  {name:'강철 검',slot:'weapon',atk:22},{name:'기사 검',slot:'weapon',atk:30},{name:'전설 대검',slot:'weapon',atk:45},
-  {name:'신화 검',slot:'weapon',atk:60}
-];
-const ARMOR_POOL=[
-  {name:'모자',slot:'hat',def:3},{name:'상의',slot:'top',def:8,hp:10},{name:'하의',slot:'bottom',def:5,spd:2},
-  {name:'신발',slot:'shoes',spd:4},{name:'갑옷',slot:'armor',def:12,hp:20},{name:'방패',slot:'sub',def:7},
-  {name:'단검',slot:'sub',atk:5},{name:'마법서',slot:'sub',atk:8},
-  {name:'기사 갑옷',slot:'armor',def:22,hp:30},{name:'전설 투구',slot:'hat',def:15},
-  {name:'신화 갑옷',slot:'armor',def:40,hp:60}
-];
-const COMBINED_POOL=[...WEAPON_POOL,...ARMOR_POOL];
-const GRADES_W=[{name:'일반',cls:'ri-n',prob:.40},{name:'고급',cls:'ri-r',prob:.30},{name:'희귀',cls:'ri-e',prob:.20},{name:'영웅',cls:'ri-l',prob:.08},{name:'전설',cls:'ri-m',prob:.02}];
-const GRADES_C=[{name:'일반',cls:'ri-n',prob:.35},{name:'고급',cls:'ri-r',prob:.28},{name:'희귀',cls:'ri-e',prob:.22},{name:'영웅',cls:'ri-l',prob:.10},{name:'전설',cls:'ri-m',prob:.04},{name:'신화',cls:'ri-m',prob:.01}];
+// (kept for compatibility — using new pools above)
+const WEAPON_POOL=[...WARRIOR_WEAPONS];
+const ARMOR_POOL=[...ARMOR_POOL_NEW];
 
 /* ── ZONES ── */
 const ZONES=[
@@ -744,7 +844,8 @@ const ENHANCE_TABLE=[
 /* ── STATE ── */
 function defaultG(nick,job){
   const j=JOBS[job];
-  const inv=[{...j.startWeapon,enhLv:0,uid:'item_'+Date.now()}];
+  const startUid='start_'+job+'_w';
+  const inv=[{...j.startWeapon,enhLv:0,uid:startUid,shape:j.startWeapon.shape||'sword',grade:j.startWeapon.grade||'normal',gradeName:'노말'}];
   return{
     nickname:nick,job,
     hero:{level:1,exp:0,expNext:30,hp:100,maxHp:100,mp:100,maxMp:100},
@@ -759,8 +860,8 @@ function defaultG(nick,job){
     pity:{weapon:0,armor:0,combined:0},
     pity50:{weapon:false,armor:false,combined:false},
     inventory:inv,
-    equipped:{weapon:'item_'+Date.now(),hat:null,top:null,bottom:null,shoes:null,armor:null,sub:null},
-    equipBonus:{weapon:{atk:5},hat:{},top:{},bottom:{},shoes:{},armor:{},sub:{}},
+    equipped:{weapon:startUid,hat:null,top:null,bottom:null,shoes:null,armor:null,sub:null},
+    equipBonus:{weapon:{atk:j.startWeapon.atk||5},hat:{},top:{},bottom:{},shoes:{},armor:{},sub:{}},
     materials:{normal:0,rare:0,legend:0,protect:0},
     enhanceLog:[]
   };
@@ -796,15 +897,26 @@ async function loadData(u){
 
 function scheduleSave(){
   const badge=document.getElementById('save-badge');
-  if(badge)badge.textContent='저장 중...';
+  if(badge)badge.textContent='\uc800\uc7a5 \uc911...';
   if(saveTimer)clearTimeout(saveTimer);
   saveTimer=setTimeout(async()=>{
     if(!uid||!G)return;
     G.updatedAt=new Date().toISOString();
     try{
       await setDoc(doc(db,'users',uid),G);
-      if(badge){badge.textContent='✓ 저장됨';setTimeout(()=>badge.textContent='',2000);}
-    }catch(e){if(badge)badge.textContent='저장 실패';}
+      if(badge){badge.textContent='\u2713 \uc800\uc7a5\ub428';setTimeout(()=>{if(badge)badge.textContent='';},2000);}
+    }catch(e){
+      console.error('Save error:',e.code,e.message);
+      if(badge){
+        if(e.code==='permission-denied'){
+          badge.textContent='\u274c Firebase \uaddc\uce59 \uc5c5\ub370\uc774\ud2b8 \ud544\uc694';
+          badge.style.color='var(--red)';
+          badge.title='Firebase \ucf58\uc194 \u2192 Firestore \u2192 \uaddc\uce59 \ud0ed\uc5d0\uc11c \ubcf4\uc548 \uaddc\uce59\uc744 \uc5c5\ub370\uc774\ud2b8\ud558\uc138\uc694';
+        } else {
+          badge.textContent='\uc800\uc7a5 \uc2e4\ud328 (\uc7ac\uc2dc\ub3c4 \uc911)';
+        }
+      }
+    }
   },1500);
 }
 
@@ -890,6 +1002,7 @@ window.switchTab=el=>{
   if(tab==='inventory')renderInventory();
   if(tab==='enhance'){renderEnhanceSelect();renderMaterials();}
   if(tab==='equip')renderEquipTab();
+  if(tab==='gacha')renderJobGachaCards();
 };
 
 /* ── GAME LOGIC ── */
@@ -909,8 +1022,20 @@ function calcDef(){return G.stats.def+Object.values(G.equipBonus).reduce((a,b)=>
 
 /* ── BATTLE ── */
 window.enterDungeon=()=>{
-  if(G.entryCount>=10){addLog('오늘 던전 입장 횟수를 모두 사용했습니다!');return;}
-  G.entryCount++;inBattle=true;spawnMonster();updateBtns();updateHeroUI();scheduleSave();
+  if(!G){showToast('게임 데이터 오류. 새로고침 해주세요.');return;}
+  if(inBattle){addLog('이미 전투 중입니다! 공격하거나 도망치세요.');return;}
+  if(G.entryCount>=10){addLog('오늘 던전 입장 횟수를 모두 사용했습니다! (내일 초기화)');return;}
+  const zone=ZONES[G.zoneIdx];
+  if(!zone||!zone.monsters||zone.monsters.length===0){
+    addLog('\uc774 구역은 아직 준비 중입니다! 다른 구역을 선택하세요.');return;
+  }
+  G.entryCount++;
+  inBattle=true;
+  monster=null;
+  updateBtns();
+  spawnMonster();
+  updateHeroUI();
+  scheduleSave();
 };
 
 function spawnMonster(){
@@ -928,20 +1053,36 @@ function spawnMonster(){
 function pickGradeZone(){let r=Math.random(),cum=0;for(const[g,p]of GRADE_PROB){cum+=p;if(r<cum)return g;}return'일반';}
 
 window.doAttack=()=>{
-  if(!inBattle||!monster)return;
-  let dmg=Math.max(1,Math.floor(calcAtk())-Math.floor(monster.atk*0.1));
-  const crit=Math.random()<G.stats.luk*0.01;
-  if(crit){dmg=Math.floor(dmg*1.8);addLog(`⚡ 크리티컬! ${dmg}의 피해!`,'dmg');}
-  else addLog(`${monster.name}에게 ${dmg}의 피해!`,'dmg');
-  if(monster.traits.includes('반사')){const ref=Math.floor(dmg*0.2);G.hero.hp=Math.max(1,G.hero.hp-ref);addLog(`🔄 반사 피해 ${ref}!`,'dmg');}
-  monster.hp-=dmg;
-  document.getElementById('battle-stage').classList.add('anim-hit');
-  setTimeout(()=>document.getElementById('battle-stage').classList.remove('anim-hit'),300);
-  if(monster.traits.includes('격노')&&monster.hp<monster.maxHp*0.3&&!monster._enraged){monster._enraged=true;monster.atk=Math.floor(monster.atk*1.5);addLog(`😡 ${monster.name}이 격노했다! 공격력 급상승!`,'dmg');}
-  if(monster.maxPhases>1){const p=monster.hp/monster.maxHp>0.7?1:monster.hp/monster.maxHp>0.4?2:monster.hp/monster.maxHp>0.2?3:4;if(p>monster.phase){monster.phase=p;addLog(`💥 ${monster.name} ${p}페이즈 진입!`,'dmg');}}
-  if(monster.hp<=0){killMonster();return;}
-  monsterAttack();
-  renderMonster();updateHeroUI();
+  if(!G||!inBattle||!monster){
+    if(inBattle){inBattle=false;clearMonsterUI();}
+    updateBtns();return;
+  }
+  try{
+    let dmg=Math.max(1,Math.floor(calcAtk())-Math.floor(monster.atk*0.1));
+    const crit=Math.random()<G.stats.luk*0.01;
+    if(crit){dmg=Math.floor(dmg*1.8);addLog('\u26a1 \ud06c\ub9ac\ud2f0\ucec8! '+dmg+'\uc758 \ud53c\ud574!','dmg');}
+    else addLog(monster.name+'\uc5d0\uac8c '+dmg+'\uc758 \ud53c\ud574!','dmg');
+    if(monster.traits.includes('\ubc18\uc0ac')){const ref=Math.floor(dmg*0.2);G.hero.hp=Math.max(1,G.hero.hp-ref);addLog('\ubc18\uc0ac \ud53c\ud574 '+ref+'!','dmg');}
+    monster.hp-=dmg;
+    const stage=document.getElementById('battle-stage');
+    if(stage){stage.classList.add('anim-hit');setTimeout(function(){if(stage)stage.classList.remove('anim-hit');},300);}
+    if(monster.traits.includes('\uaca9\ub178')&&monster.hp<monster.maxHp*0.3&&!monster._enraged){
+      monster._enraged=true;monster.atk=Math.floor(monster.atk*1.5);
+      addLog(monster.name+'\uc774 \uaca9\ub178\ud588\ub2e4!','dmg');
+    }
+    if(monster.maxPhases>1){
+      const p=monster.hp/monster.maxHp>0.7?1:monster.hp/monster.maxHp>0.4?2:monster.hp/monster.maxHp>0.2?3:4;
+      if(p>monster.phase){monster.phase=p;addLog(monster.name+' '+p+'\ud398\uc774\uc988 \uc9c4\uc785!','dmg');}
+    }
+    if(monster.hp<=0){killMonster();return;}
+    monsterAttack();
+    if(inBattle&&monster)renderMonster();
+    updateHeroUI();
+  }catch(err){
+    console.error('doAttack error:',err);
+    addLog('\u26a0\ufe0f \uc804\ud22c \uc624\ub958 \uc790\ub3d9 \ubcf5\uad6c...');
+    inBattle=false;monster=null;clearMonsterUI();updateBtns();
+  }
 };
 
 function monsterAttack(){
@@ -1054,7 +1195,9 @@ window.selectZone=i=>{
 };
 
 /* ── EQUIP ── */
-function isJobAllowed(itemName){
+function isJobAllowed(itemName,itemObj){
+  // check item object's allowedJobs first
+  if(itemObj&&itemObj.allowedJobs){return itemObj.allowedJobs.includes(G.job);}
   const def=ITEM_DEFS[itemName];
   if(!def)return true;
   return def.allowedJobs.includes(G.job);
@@ -1064,7 +1207,7 @@ window.equipItemById=id=>{
   const item=G.inventory.find(it=>it.uid===id);
   if(!item)return;
   const slot=item.slot;
-  if(!isJobAllowed(item.name)){showToast('❌ 이 직업은 해당 장비를 착용할 수 없습니다');return;}
+  if(!isJobAllowed(item.name,item)){showToast('❌ 이 직업은 해당 장비를 착용할 수 없습니다');return;}
   const prev=G.equipped[slot];
   if(prev===id){
     G.equipped[slot]=null;G.equipBonus[slot]={};
@@ -1119,45 +1262,78 @@ function pickGrade(grades,forceLeg,forceEpic){
 }
 
 window.pull=(type,count)=>{
-  const costPer={weapon:100,armor:100,combined:150};
-  const cost10={weapon:950,armor:950,combined:1400};
-  const cost=count===1?costPer[type]:cost10[type];
+  if(!G){showToast('게임 데이터 오류');return;}
+  const costPer={weapon:100,weapon_warrior:100,weapon_mage:100,weapon_archer:100,armor:100,combined:150};
+  const cost10={weapon:950,weapon_warrior:950,weapon_mage:950,weapon_archer:950,armor:950,combined:1400};
+  const cost=count===1?(costPer[type]||100):(cost10[type]||950);
   if(G.gems<cost){showToast('💎 젬이 부족합니다!');return;}
   G.gems-=cost;
-  const grades=type==='combined'?GRADES_C:GRADES_W;
-  const pool=type==='weapon'?WEAPON_POOL:type==='armor'?ARMOR_POOL:COMBINED_POOL;
+
+  // pick pool & probs
+  let pool,probs,pityKey;
+  if(type==='weapon_warrior'){pool=WARRIOR_WEAPONS;probs=WEAPON_GRADE_PROBS;pityKey='weapon_warrior';}
+  else if(type==='weapon_mage'){pool=MAGE_WEAPONS;probs=WEAPON_GRADE_PROBS;pityKey='weapon_mage';}
+  else if(type==='weapon_archer'){pool=ARCHER_WEAPONS;probs=WEAPON_GRADE_PROBS;pityKey='weapon_archer';}
+  else if(type==='armor'){pool=ARMOR_POOL_NEW;probs=ARMOR_GRADE_PROBS;pityKey='armor';}
+  else{pool=COMBINED_POOL_NEW;probs=COMBINED_GRADE_PROBS;pityKey='combined';}
+
+  if(!G.pity)G.pity={};
+  if(!G.pity50)G.pity50={};
+  if(!G.pity[pityKey])G.pity[pityKey]=0;
+
   const results=[];
   for(let i=0;i<count;i++){
-    G.pity[type]++;
-    const forceLeg=G.pity[type]>=100;
-    const force50=G.pity[type]>=50&&!G.pity50[type];
+    G.pity[pityKey]++;
+    const forceLeg=G.pity[pityKey]>=100;
+    const force50=G.pity[pityKey]>=50&&!G.pity50[pityKey];
     const forceEpic=count===10&&i===count-1;
-    const g=pickGrade(grades,forceLeg,force50||forceEpic);
-    if(forceLeg){G.pity[type]=0;G.pity50[type]=false;}
-    if(force50)G.pity50[type]=true;
-    const base=pool[Math.floor(Math.random()*pool.length)];
-    const newItem={...base,grade:g.name,cls:g.cls,uid:'item_'+Date.now()+'_'+i,enhLv:0};
+    const gradeId=pickGradeNew(probs,forceLeg,force50||forceEpic);
+    if(forceLeg){G.pity[pityKey]=0;G.pity50[pityKey]=false;}
+    if(force50)G.pity50[pityKey]=true;
+
+    // pick item from pool matching grade
+    let candidates=pool.filter(it=>it.grade===gradeId);
+    if(!candidates.length)candidates=pool;
+    const base=candidates[Math.floor(Math.random()*candidates.length)];
+    const gDef=GRADE_BY_ID[gradeId]||GRADE_DEFS[0];
+    const newItem={
+      ...base,
+      grade:gradeId,
+      gradeName:gDef.name,
+      cls:gDef.cls,
+      uid:'item_'+Date.now()+'_'+i+'_'+Math.random().toString(36).slice(2),
+      enhLv:0
+    };
     G.inventory.push(newItem);
-    results.push({grade:g,item:newItem});
+    results.push({gDef,item:newItem});
   }
+
   renderGachaResults(results,count);
-  ['weapon','armor','combined'].forEach(t=>{
-    const pe=document.getElementById('pity-'+t);const pf=document.getElementById('pf-'+t);
-    if(pe)pe.textContent=G.pity[t];if(pf)pf.style.width=Math.min(G.pity[t],100)+'%';
+  // update pity bars
+  ['weapon_warrior','weapon_mage','weapon_archer','armor','combined'].forEach(k=>{
+    const pe=document.getElementById('pity-'+k);
+    const pf=document.getElementById('pf-'+k);
+    if(pe)pe.textContent=G.pity[k]||0;
+    if(pf)pf.style.width=Math.min(G.pity[k]||0,100)+'%';
   });
-  if(results.some(r=>['영웅','전설','신화'].includes(r.grade.name)))showToast('🎉 희귀 아이템 획득!');
+  if(results.some(r=>['epic','unique','legend'].includes(r.gDef.id)))showToast('🎉 고등급 아이템 획득!');
   updateHeroUI();scheduleSave();
 };
 
 function renderGachaResults(results,count){
-  const title=document.getElementById('result-title');const area=document.getElementById('result-items');
-  if(title)title.textContent=count+'회 뽑기 결과 (클릭하여 인벤토리 확인)';
-  if(!area)return;area.innerHTML='';
+  const title=document.getElementById('result-title');
+  const area=document.getElementById('result-items');
+  if(title)title.textContent=count+'회 뽑기 결과 (클릭 → 인벤토리)';
+  if(!area)return;
+  area.innerHTML='';
   results.forEach((r,i)=>{
-    const el=document.createElement('span');el.className='ri '+r.grade.cls;
-    el.textContent=r.grade.name+' '+(r.item.name||'아이템')+(r.item.enhLv?` +${r.item.enhLv}`:'');
+    const el=document.createElement('span');
+    el.className='ri '+r.gDef.cls;
+    el.textContent=r.gDef.icon+' '+r.gDef.name+' '+r.item.name;
     el.style.animationDelay=(i*0.06)+'s';
-    el.onclick=()=>switchTab(document.querySelector('[data-tab="inventory"]'));
+    el.onclick=()=>{
+      document.querySelector('[data-tab="inventory"]').click();
+    };
     area.appendChild(el);
   });
 }
@@ -1313,25 +1489,28 @@ function renderZones(){
 
 function renderInventory(){
   const grid=document.getElementById('inv-grid');if(!grid)return;
-  let items=G.inventory;
+  let items=[...G.inventory];
   if(invFilter==='weapon')items=items.filter(it=>it.slot==='weapon');
   else if(invFilter==='armor')items=items.filter(it=>it.slot!=='weapon');
   else if(invFilter==='equipped')items=items.filter(it=>Object.values(G.equipped).includes(it.uid));
-  if(!items.length){grid.innerHTML='<div class="inv-empty">'+( invFilter==='equipped'?'장착한 아이템이 없습니다':'아이템이 없습니다. 뽑기로 아이템을 획득하세요!')+'</div>';return;}
-  const gradeColors={일반:'#999',고급:'var(--blue)',희귀:'var(--purple)',영웅:'var(--gold)',전설:'var(--red)',신화:'#ff66aa'};
-  const gradeBg={일반:'rgba(153,153,153,0.15)',고급:'rgba(55,138,221,0.15)',희귀:'rgba(127,119,221,0.15)',영웅:'rgba(239,159,39,0.15)',전설:'rgba(226,75,74,0.15)',신화:'rgba(255,102,170,0.15)'};
+  if(!items.length){
+    grid.innerHTML='<div class="inv-empty">'+(invFilter==='equipped'?'장착한 아이템이 없습니다':'아이템이 없습니다. 뽑기로 아이템을 획득하세요!')+'</div>';return;
+  }
+  const gDefs={normal:{color:'#999',bg:'rgba(153,153,153,0.12)'},rare:{color:'#4488cc',bg:'rgba(68,136,204,0.12)'},uncommon:{color:'#5555cc',bg:'rgba(85,85,204,0.12)'},epic:{color:'#8844cc',bg:'rgba(136,68,204,0.12)'},unique:{color:'#cc8800',bg:'rgba(204,136,0,0.12)'},legend:{color:'#cc2200',bg:'rgba(204,34,0,0.12)'}};
   grid.innerHTML=items.map(it=>{
     const isEq=Object.values(G.equipped).includes(it.uid);
-    const gc=gradeColors[it.grade]||'#999';const gb=gradeBg[it.grade]||'';
-    const def=ITEM_DEFS[it.name];const icon=def?.icon||'📦';
-    const jobOk=isJobAllowed(it.name);
-    const stats=[it.atk?`ATK +${it.atk+(it.enhLv||0)*Math.ceil((it.atk||0)*0.05)}`:'',it.def?`DEF +${it.def}`:'',it.hp?`HP +${it.hp}`:'',it.spd?`SPD +${it.spd}`:''].filter(Boolean).join(' · ');
-    return `<div class="inv-card ${isEq?'equipped':''}" style="border-color:${isEq?'var(--green)':gc}">
-      <div style="font-size:22px;margin-bottom:5px">${icon} ${it.enhLv>0?`<span style="color:var(--gold);font-size:11px">+${it.enhLv}</span>`:''}</div>
-      <div class="inv-card-name">${it.name}</div>
-      <div class="inv-card-grade" style="background:${gb};color:${gc}">${it.grade}</div>
-      <div class="inv-card-slot">${SLOT_LABELS[it.slot]||it.slot} · ${stats}</div>
-      ${!jobOk?`<div style="font-size:10px;color:var(--red);margin-top:4px">❌ 직업 불가</div>`:''}
+    const gd=gDefs[it.grade]||gDefs.normal;
+    const shape=it.shape||'sword';
+    const svgHtml=getItemSVG(shape,it.grade||'normal');
+    const gradeLabel=it.gradeName||(GRADE_BY_ID[it.grade]?.name)||it.grade||'노말';
+    const jobOk=isJobAllowed(it.name,it);
+    const stats=[it.atk?'ATK +'+(it.atk+(it.enhLv||0)*Math.ceil((it.atk||1)*0.05)):'',it.def?'DEF +'+it.def:'',it.hp?'HP +'+it.hp:'',it.spd?'SPD +'+it.spd:''].filter(Boolean).join(' · ');
+    return `<div class="inv-card ${isEq?'equipped':''}" style="border-color:${isEq?'var(--green)':gd.color};background:${gd.bg}">
+      <div style="display:flex;align-items:center;justify-content:center;min-height:44px;margin-bottom:6px">${svgHtml}</div>
+      <div class="inv-card-name">${it.name}${it.enhLv>0?` <span style="color:var(--gold)">+${it.enhLv}</span>`:''}</div>
+      <div class="inv-card-grade" style="background:${gd.bg};color:${gd.color};border:0.5px solid ${gd.color}">${gradeLabel}</div>
+      <div class="inv-card-slot" style="margin-top:4px">${SLOT_LABELS[it.slot]||it.slot} · ${stats}</div>
+      ${!jobOk&&!isEq?`<div style="font-size:10px;color:var(--red);margin-top:3px">❌ 직업 불가</div>`:''}
       <button class="inv-equip-btn ${isEq?'unequip':'equip'}" onclick="equipItemById('${it.uid}')" ${!jobOk&&!isEq?'disabled style="opacity:0.4;cursor:not-allowed"':''}>
         ${isEq?'해제':'장착'}
       </button>
@@ -1356,17 +1535,20 @@ function renderEquipTab(){
 
 function renderEquipCards(slot){
   const items=G.inventory.filter(it=>it.slot===slot);
-  if(!items.length)return`<div style="font-size:11px;color:var(--text2);padding:8px">보유한 ${SLOT_LABELS[slot]} 없음</div>`;
+  if(!items.length)return`<div style="font-size:11px;color:var(--text2);padding:8px">보유한 ${SLOT_LABELS[slot]||slot} 없음 — 뽑기에서 획득하세요</div>`;
+  const gDefs={normal:{color:'#999'},rare:{color:'#4488cc'},uncommon:{color:'#5555cc'},epic:{color:'#8844cc'},unique:{color:'#cc8800'},legend:{color:'#cc2200'}};
   return items.map(it=>{
     const isEq=G.equipped[slot]===it.uid;
-    const jobOk=isJobAllowed(it.name);
-    const def=ITEM_DEFS[it.name];const icon=def?.icon||'📦';
-    const stats=[it.atk?`ATK+${it.atk}`:'',it.def?`DEF+${it.def}`:'',it.hp?`HP+${it.hp}`:'',it.spd?`SPD+${it.spd}`:''].filter(Boolean).join(' ');
-    return `<div class="item-card ${isEq?'equipped':''} ${!jobOk&&!isEq?'locked-job':''}" onclick="${jobOk||isEq?`equipItemById('${it.uid}')`:''}" title="${it.name} +${it.enhLv||0}">
-      <div class="ic-icon">${icon}</div>
-      <div class="ic-name">${it.name}${it.enhLv?` +${it.enhLv}`:''}</div>
-      <div class="ic-sub">${stats}</div>
-      <span class="badge ${slot==='weapon'||slot==='sub'?'bw':'ba'}">${it.grade}</span>
+    const jobOk=isJobAllowed(it.name,it);
+    const shape=it.shape||'sword';
+    const svgHtml=getItemSVG(shape,it.grade||'normal');
+    const gd=gDefs[it.grade]||gDefs.normal;
+    const gradeLabel=it.gradeName||(GRADE_BY_ID[it.grade]?.name)||it.grade||'노말';
+    return `<div class="item-card ${isEq?'equipped':''} ${!jobOk&&!isEq?'locked-job':''}" onclick="${jobOk||isEq?`equipItemById('${it.uid}')`:''}" title="${it.name} +${it.enhLv||0}" style="border-color:${gd.color}33">
+      <div style="display:flex;align-items:center;justify-content:center;min-height:42px">${svgHtml}</div>
+      <div class="ic-name" style="color:${gd.color}">${it.name}${it.enhLv?` +${it.enhLv}`:''}</div>
+      <div style="font-size:9px;color:${gd.color};margin:1px 0">${gradeLabel}</div>
+      <span class="badge ${slot==='weapon'||slot==='sub'?'bw':'ba'}">${SLOT_LABELS[slot]||slot}</span>
     </div>`;
   }).join('');
 }
@@ -1462,9 +1644,110 @@ window.showToast=showToast;
 window.addStatPt=window.addStatPt;
 window.equipItemById=window.equipItemById;
 
+
+/* ── ITEM SVG DESIGNS by shape & grade ── */
+function getItemSVG(shape, gradeId){
+  const g=GRADE_BY_ID[gradeId]||GRADE_DEFS[0];
+  const gc=g.color;
+  const glow=gradeId==='legend'?`filter:drop-shadow(0 0 4px ${gc})`:'';
+  const svgs={
+    sword:{
+      normal:`<svg width="28" height="40" viewBox="0 0 28 40" style="${glow}"><rect x="12" y="3" width="4" height="22" rx="1" fill="#888"/><polygon points="10,3 14,0 18,3 16,8 12,8" fill="#aaa"/><rect x="7" y="20" width="14" height="4" rx="2" fill="#664422"/><rect x="11" y="24" width="6" height="12" rx="2" fill="#553311"/></svg>`,
+      rare:`<svg width="28" height="40" viewBox="0 0 28 40" style="${glow}"><rect x="12" y="2" width="4" height="24" rx="1" fill="#77aadd"/><polygon points="10,2 14,0 18,2 16,8 12,8" fill="#aaccff"/><rect x="6" y="20" width="16" height="4" rx="2" fill="#335599"/><rect x="11" y="24" width="6" height="13" rx="2" fill="#224488"/><circle cx="14" cy="12" r="2" fill="#ddeeff" opacity="0.7"/></svg>`,
+      uncommon:`<svg width="28" height="40" viewBox="0 0 28 40" style="${glow}"><rect x="11" y="2" width="6" height="24" rx="1.5" fill="#8888ee"/><polygon points="9,2 14,0 19,2 17,8 11,8" fill="#aaaaff"/><rect x="5" y="20" width="18" height="5" rx="2.5" fill="#4444aa"/><rect x="11" y="25" width="6" height="12" rx="2" fill="#333388"/><rect x="13" y="8" width="2" height="8" fill="#ccccff" opacity="0.8"/></svg>`,
+      epic:`<svg width="32" height="42" viewBox="0 0 32 42" style="${glow}"><defs><linearGradient id="eg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#cc88ff"/><stop offset="100%" stop-color="#6644aa"/></linearGradient></defs><rect x="13" y="1" width="6" height="26" rx="1.5" fill="url(#eg)"/><polygon points="10,1 16,0 22,1 19,9 13,9" fill="#ddaaff"/><rect x="5" y="22" width="22" height="5" rx="2.5" fill="#7744bb"/><rect x="12" y="27" width="8" height="12" rx="2" fill="#553399"/><circle cx="16" cy="13" r="3" fill="#eeddff" opacity="0.6"/><rect x="15" y="4" width="2" height="16" fill="white" opacity="0.3"/></svg>`,
+      unique:`<svg width="34" height="44" viewBox="0 0 34 44" style="${glow}"><defs><linearGradient id="ug" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffee88"/><stop offset="100%" stop-color="#cc8800"/></linearGradient></defs><rect x="14" y="1" width="6" height="28" rx="1.5" fill="url(#ug)"/><polygon points="11,1 17,0 23,1 20,9 14,9" fill="#ffdd55"/><rect x="5" y="24" width="24" height="5" rx="2.5" fill="#996600"/><rect x="13" y="29" width="8" height="12" rx="2" fill="#664400"/><circle cx="17" cy="14" r="3.5" fill="#ffee99" opacity="0.8"/><rect x="16" y="3" width="2" height="20" fill="white" opacity="0.4"/><circle cx="17" cy="6" r="1.5" fill="white" opacity="0.6"/></svg>`,
+      legend:`<svg width="36" height="46" viewBox="0 0 36 46" style="${glow}"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff8888"/><stop offset="50%" stop-color="#ff4444"/><stop offset="100%" stop-color="#990000"/></linearGradient></defs><rect x="15" y="1" width="6" height="30" rx="1.5" fill="url(#lg)"/><polygon points="12,1 18,0 24,1 21,9 15,9" fill="#ff9999"/><rect x="4" y="25" width="28" height="6" rx="3" fill="#aa0000"/><rect x="13" y="31" width="10" height="12" rx="2" fill="#770000"/><circle cx="18" cy="15" r="4" fill="#ffaaaa" opacity="0.7"/><rect x="17" y="3" width="2" height="22" fill="white" opacity="0.35"/><circle cx="18" cy="6" r="2" fill="white" opacity="0.5"/><circle cx="18" cy="24" r="1.5" fill="#ff6666" opacity="0.8"/></svg>`,
+    },
+    greatsword:{
+      normal:`<svg width="34" height="44" viewBox="0 0 34 44" style="${glow}"><rect x="14" y="1" width="6" height="30" rx="1.5" fill="#888"/><polygon points="11,1 17,0 23,1 20,10 14,10" fill="#aaa"/><rect x="6" y="26" width="22" height="5" rx="2.5" fill="#664422"/><rect x="13" y="31" width="8" height="11" rx="2" fill="#553311"/></svg>`,
+      rare:`<svg width="34" height="44" viewBox="0 0 34 44" style="${glow}"><rect x="14" y="1" width="6" height="30" rx="1.5" fill="#77aadd"/><polygon points="11,1 17,0 23,1 20,10 14,10" fill="#aaccff"/><rect x="5" y="26" width="24" height="5" rx="2.5" fill="#335599"/><rect x="13" y="31" width="8" height="11" rx="2" fill="#224488"/><rect x="16" y="5" width="2" height="20" fill="#ddeeff" opacity="0.5"/></svg>`,
+      uncommon:`<svg width="36" height="46" viewBox="0 0 36 46" style="${glow}"><rect x="14" y="1" width="8" height="32" rx="2" fill="#8888ee"/><polygon points="10,1 18,0 26,1 22,10 14,10" fill="#aaaaff"/><rect x="4" y="27" width="28" height="6" rx="3" fill="#4444aa"/><rect x="13" y="33" width="10" height="11" rx="2" fill="#333388"/></svg>`,
+      epic:`<svg width="38" height="48" viewBox="0 0 38 48" style="${glow}"><defs><linearGradient id="geg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#cc88ff"/><stop offset="100%" stop-color="#6644aa"/></linearGradient></defs><rect x="15" y="1" width="8" height="34" rx="2" fill="url(#geg)"/><polygon points="11,1 19,0 27,1 23,11 15,11" fill="#ddaaff"/><rect x="3" y="28" width="32" height="6" rx="3" fill="#7744bb"/><rect x="13" y="34" width="12" height="12" rx="2" fill="#553399"/><rect x="18" y="5" width="2" height="24" fill="white" opacity="0.3"/></svg>`,
+      unique:`<svg width="40" height="50" viewBox="0 0 40 50" style="${glow}"><defs><linearGradient id="gug" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffee88"/><stop offset="100%" stop-color="#cc8800"/></linearGradient></defs><rect x="16" y="1" width="8" height="36" rx="2" fill="url(#gug)"/><polygon points="12,1 20,0 28,1 24,11 16,11" fill="#ffdd55"/><rect x="3" y="30" width="34" height="7" rx="3.5" fill="#996600"/><rect x="14" y="37" width="12" height="11" rx="2" fill="#664400"/><rect x="19" y="5" width="2" height="26" fill="white" opacity="0.35"/><circle cx="20" cy="8" r="2" fill="white" opacity="0.5"/></svg>`,
+      legend:`<svg width="42" height="52" viewBox="0 0 42 52" style="${glow}"><defs><linearGradient id="glg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff9999"/><stop offset="50%" stop-color="#ff3333"/><stop offset="100%" stop-color="#880000"/></linearGradient></defs><rect x="17" y="1" width="8" height="38" rx="2" fill="url(#glg)"/><polygon points="13,1 21,0 29,1 25,11 17,11" fill="#ff9999"/><rect x="3" y="32" width="36" height="7" rx="3.5" fill="#aa0000"/><rect x="14" y="39" width="14" height="11" rx="2" fill="#660000"/><rect x="20" y="4" width="2" height="28" fill="white" opacity="0.3"/><circle cx="21" cy="7" r="2.5" fill="white" opacity="0.4"/></svg>`,
+    },
+    bow:{
+      normal:`<svg width="32" height="44" viewBox="0 0 32 44" style="${glow}"><path d="M22 3 Q14 22 22 41" stroke="#886644" stroke-width="3" fill="none" stroke-linecap="round"/><line x1="22" y1="3" x2="22" y2="41" stroke="#aaa" stroke-width="1.2" stroke-dasharray="3,2"/><rect x="18" y="19" width="10" height="3" rx="1.5" fill="#554422"/></svg>`,
+      rare:`<svg width="32" height="44" viewBox="0 0 32 44" style="${glow}"><path d="M22 3 Q12 22 22 41" stroke="#4488cc" stroke-width="3.5" fill="none" stroke-linecap="round"/><line x1="22" y1="3" x2="22" y2="41" stroke="#aaccff" stroke-width="1.2" stroke-dasharray="3,2"/><rect x="17" y="19" width="12" height="3" rx="1.5" fill="#224488"/><circle cx="22" cy="22" r="3" fill="#77aadd" opacity="0.5"/></svg>`,
+      uncommon:`<svg width="32" height="44" viewBox="0 0 32 44" style="${glow}"><path d="M22 2 Q10 22 22 42" stroke="#8888ee" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M22 2 Q28 22 22 42" stroke="#ccccff" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.5"/><line x1="22" y1="2" x2="22" y2="42" stroke="#ccccff" stroke-width="1.5"/><rect x="16" y="19" width="14" height="4" rx="2" fill="#333399"/></svg>`,
+      epic:`<svg width="34" height="46" viewBox="0 0 34 46" style="${glow}"><defs><linearGradient id="beg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#cc88ff"/><stop offset="100%" stop-color="#6644aa"/></linearGradient></defs><path d="M22 2 Q8 23 22 44" stroke="url(#beg)" stroke-width="4.5" fill="none" stroke-linecap="round"/><line x1="22" y1="2" x2="22" y2="44" stroke="#ddaaff" stroke-width="1.5"/><rect x="15" y="20" width="16" height="4" rx="2" fill="#5533aa"/><circle cx="22" cy="23" r="4" fill="#cc88ff" opacity="0.4"/></svg>`,
+      unique:`<svg width="36" height="48" viewBox="0 0 36 48" style="${glow}"><defs><linearGradient id="bug" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffee88"/><stop offset="100%" stop-color="#cc8800"/></linearGradient></defs><path d="M24 2 Q6 24 24 46" stroke="url(#bug)" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M24 2 Q32 24 24 46" stroke="#ffdd55" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/><line x1="24" y1="2" x2="24" y2="46" stroke="#ffee99" stroke-width="1.5"/><rect x="14" y="21" width="18" height="5" rx="2.5" fill="#886600"/></svg>`,
+      legend:`<svg width="38" height="50" viewBox="0 0 38 50" style="${glow}"><defs><linearGradient id="blg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff9999"/><stop offset="50%" stop-color="#ff3333"/><stop offset="100%" stop-color="#880000"/></linearGradient></defs><path d="M26 2 Q6 25 26 48" stroke="url(#blg)" stroke-width="5.5" fill="none" stroke-linecap="round"/><path d="M26 2 Q34 25 26 48" stroke="#ff9999" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/><line x1="26" y1="2" x2="26" y2="48" stroke="#ffaaaa" stroke-width="2"/><rect x="14" y="22" width="20" height="5" rx="2.5" fill="#880000"/><circle cx="26" cy="25" r="5" fill="#ff6666" opacity="0.3"/></svg>`,
+    },
+    orb:{
+      normal:`<svg width="36" height="44" viewBox="0 0 36 44" style="${glow}"><circle cx="18" cy="14" r="11" fill="none" stroke="#888" stroke-width="1.5"/><circle cx="18" cy="14" r="7" fill="#aaa" opacity="0.3"/><circle cx="18" cy="14" r="3.5" fill="#ccc"/><rect x="16" y="25" width="4" height="16" rx="2" fill="#554422"/></svg>`,
+      rare:`<svg width="36" height="44" viewBox="0 0 36 44" style="${glow}"><circle cx="18" cy="14" r="12" fill="none" stroke="#4488cc" stroke-width="2"/><circle cx="18" cy="14" r="8" fill="#77aadd" opacity="0.35"/><circle cx="18" cy="14" r="4" fill="#aaccff"/><circle cx="14" cy="10" r="2" fill="white" opacity="0.5"/><rect x="16" y="26" width="4" height="15" rx="2" fill="#224488"/></svg>`,
+      uncommon:`<svg width="38" height="46" viewBox="0 0 38 46" style="${glow}"><circle cx="19" cy="15" r="13" fill="none" stroke="#8888ee" stroke-width="2"/><circle cx="19" cy="15" r="9" fill="#aaaaff" opacity="0.35"/><circle cx="19" cy="15" r="5" fill="#ccccff"/><circle cx="15" cy="11" r="2.5" fill="white" opacity="0.5"/><rect x="17" y="28" width="4" height="15" rx="2" fill="#333399"/><circle cx="24" cy="10" r="1.5" fill="#8888ff" opacity="0.7"/></svg>`,
+      epic:`<svg width="40" height="48" viewBox="0 0 40 48" style="${glow}"><defs><radialGradient id="oeg"><stop offset="0%" stop-color="#eeddff"/><stop offset="100%" stop-color="#8844cc"/></radialGradient></defs><circle cx="20" cy="16" r="14" fill="none" stroke="#8844cc" stroke-width="2.5"/><circle cx="20" cy="16" r="10" fill="url(#oeg)" opacity="0.5"/><circle cx="20" cy="16" r="6" fill="#cc88ff"/><circle cx="15" cy="11" r="3" fill="white" opacity="0.45"/><rect x="18" y="30" width="4" height="15" rx="2" fill="#553399"/><circle cx="26" cy="11" r="2" fill="#aa55ee" opacity="0.7"/><circle cx="14" cy="21" r="2" fill="#bb66ff" opacity="0.6"/></svg>`,
+      unique:`<svg width="42" height="50" viewBox="0 0 42 50" style="${glow}"><defs><radialGradient id="oug"><stop offset="0%" stop-color="#ffeeaa"/><stop offset="100%" stop-color="#cc8800"/></radialGradient></defs><circle cx="21" cy="17" r="15" fill="none" stroke="#cc8800" stroke-width="3"/><circle cx="21" cy="17" r="11" fill="url(#oug)" opacity="0.5"/><circle cx="21" cy="17" r="7" fill="#ffee88"/><circle cx="16" cy="12" r="3.5" fill="white" opacity="0.45"/><rect x="19" y="32" width="4" height="15" rx="2" fill="#664400"/><circle cx="28" cy="11" r="2.5" fill="#ffcc22" opacity="0.7"/></svg>`,
+      legend:`<svg width="44" height="52" viewBox="0 0 44 52" style="${glow}"><defs><radialGradient id="olg"><stop offset="0%" stop-color="#ffaaaa"/><stop offset="100%" stop-color="#aa0000"/></radialGradient></defs><circle cx="22" cy="18" r="16" fill="none" stroke="#cc2200" stroke-width="3.5"/><circle cx="22" cy="18" r="12" fill="url(#olg)" opacity="0.55"/><circle cx="22" cy="18" r="8" fill="#ff6666"/><circle cx="17" cy="13" r="4" fill="white" opacity="0.4"/><rect x="20" y="34" width="4" height="15" rx="2" fill="#770000"/><circle cx="30" cy="12" r="3" fill="#ff4444" opacity="0.7"/><circle cx="15" cy="24" r="2.5" fill="#ff8888" opacity="0.6"/><circle cx="30" cy="24" r="2" fill="#ff3333" opacity="0.5"/></svg>`,
+    },
+    shield:{
+      normal:`<svg width="30" height="36" viewBox="0 0 30 36" style="${glow}"><path d="M15 2L27 8L27 20Q27 30 15 34Q3 30 3 20L3 8Z" fill="#888" stroke="#555" stroke-width="1.5"/><path d="M15 5L24 10L24 20Q24 28 15 31Q6 28 6 20L6 10Z" fill="#aaa"/></svg>`,
+      rare:`<svg width="30" height="36" viewBox="0 0 30 36" style="${glow}"><path d="M15 2L27 8L27 20Q27 30 15 34Q3 30 3 20L3 8Z" fill="#335599" stroke="#4488cc" stroke-width="2"/><path d="M15 5L24 10L24 20Q24 28 15 31Q6 28 6 20L6 10Z" fill="#4477bb"/><line x1="15" y1="7" x2="15" y2="28" stroke="#88bbff" stroke-width="1.5"/><line x1="7" y1="17" x2="23" y2="17" stroke="#88bbff" stroke-width="1.5"/></svg>`,
+      uncommon:`<svg width="30" height="36" viewBox="0 0 30 36" style="${glow}"><path d="M15 2L27 8L27 20Q27 30 15 34Q3 30 3 20L3 8Z" fill="#333399" stroke="#8888ee" stroke-width="2"/><path d="M15 5L24 10L24 20Q24 28 15 31Q6 28 6 20L6 10Z" fill="#4444aa"/><line x1="15" y1="7" x2="15" y2="28" stroke="#aaaaff" stroke-width="2"/><line x1="7" y1="17" x2="23" y2="17" stroke="#aaaaff" stroke-width="2"/><circle cx="15" cy="17" r="3.5" fill="#8888ee"/></svg>`,
+      epic:`<svg width="32" height="38" viewBox="0 0 32 38" style="${glow}"><defs><linearGradient id="seg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9966cc"/><stop offset="100%" stop-color="#440088"/></linearGradient></defs><path d="M16 2L28 8L28 21Q28 31 16 35Q4 31 4 21L4 8Z" fill="url(#seg)" stroke="#aa66ff" stroke-width="2"/><path d="M16 5L25 10L25 21Q25 29 16 32Q7 29 7 21L7 10Z" fill="#7744aa" opacity="0.7"/><line x1="16" y1="7" x2="16" y2="29" stroke="#ddaaff" stroke-width="2"/><line x1="8" y1="18" x2="24" y2="18" stroke="#ddaaff" stroke-width="2"/><circle cx="16" cy="18" r="4" fill="#cc88ff"/></svg>`,
+      unique:`<svg width="34" height="40" viewBox="0 0 34 40" style="${glow}"><defs><linearGradient id="sug" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ddaa00"/><stop offset="100%" stop-color="#885500"/></linearGradient></defs><path d="M17 2L29 8L29 22Q29 32 17 36Q5 32 5 22L5 8Z" fill="url(#sug)" stroke="#ffcc22" stroke-width="2.5"/><path d="M17 5L26 10L26 22Q26 30 17 33Q8 30 8 22L8 10Z" fill="#aa7700" opacity="0.7"/><line x1="17" y1="7" x2="17" y2="30" stroke="#ffee66" stroke-width="2.5"/><line x1="8" y1="19" x2="26" y2="19" stroke="#ffee66" stroke-width="2.5"/><circle cx="17" cy="19" r="5" fill="#ffcc22"/><circle cx="17" cy="19" r="2.5" fill="white" opacity="0.4"/></svg>`,
+      legend:`<svg width="36" height="42" viewBox="0 0 36 42" style="${glow}"><defs><linearGradient id="slg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff4444"/><stop offset="100%" stop-color="#880000"/></linearGradient></defs><path d="M18 2L30 8L30 23Q30 33 18 37Q6 33 6 23L6 8Z" fill="url(#slg)" stroke="#ff6666" stroke-width="3"/><path d="M18 5L27 10L27 23Q27 31 18 34Q9 31 9 23L9 10Z" fill="#aa1111" opacity="0.7"/><line x1="18" y1="7" x2="18" y2="31" stroke="#ffaaaa" stroke-width="3"/><line x1="9" y1="20" x2="27" y2="20" stroke="#ffaaaa" stroke-width="3"/><circle cx="18" cy="20" r="5.5" fill="#ff4444"/><circle cx="18" cy="20" r="3" fill="white" opacity="0.35"/><circle cx="13" cy="13" r="1.5" fill="#ff8888" opacity="0.6"/><circle cx="23" cy="13" r="1.5" fill="#ff8888" opacity="0.6"/></svg>`,
+    },
+    helmet:{
+      normal:`<svg width="38" height="34" viewBox="0 0 38 34" style="${glow}"><ellipse cx="19" cy="28" rx="17" ry="5" fill="#666"/><rect x="7" y="10" width="24" height="18" rx="12" fill="#888"/><rect x="9" y="8" width="20" height="13" rx="10" fill="#999"/><rect x="11" y="6" width="16" height="9" rx="8" fill="#aaa"/></svg>`,
+      rare:`<svg width="38" height="34" viewBox="0 0 38 34" style="${glow}"><ellipse cx="19" cy="28" rx="17" ry="5" fill="#335599"/><rect x="7" y="10" width="24" height="18" rx="12" fill="#4477bb"/><rect x="9" y="8" width="20" height="13" rx="10" fill="#6699dd"/><rect x="11" y="6" width="16" height="9" rx="8" fill="#88aaee"/><rect x="18" y="4" width="2" height="8" rx="1" fill="#ffdd44"/></svg>`,
+      uncommon:`<svg width="38" height="34" viewBox="0 0 38 34" style="${glow}"><ellipse cx="19" cy="28" rx="17" ry="5" fill="#333399"/><rect x="6" y="10" width="26" height="18" rx="12" fill="#5555aa"/><rect x="8" y="8" width="22" height="13" rx="10" fill="#7777cc"/><rect x="10" y="6" width="18" height="9" rx="8" fill="#9999ee"/><rect x="18" y="3" width="2" height="9" rx="1" fill="#ffdd44"/><rect x="6" y="14" width="4" height="8" rx="2" fill="#6666bb"/><rect x="28" y="14" width="4" height="8" rx="2" fill="#6666bb"/></svg>`,
+      epic:`<svg width="40" height="36" viewBox="0 0 40 36" style="${glow}"><defs><linearGradient id="heg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#bb88ee"/><stop offset="100%" stop-color="#5533aa"/></linearGradient></defs><ellipse cx="20" cy="30" rx="18" ry="5" fill="#5533aa"/><rect x="6" y="10" width="28" height="20" rx="13" fill="url(#heg)"/><rect x="8" y="8" width="24" height="14" rx="11" fill="#9966dd"/><rect x="10" y="6" width="20" height="10" rx="9" fill="#bb88ee"/><rect x="19" y="3" width="2" height="10" rx="1" fill="#ffdd44"/><circle cx="20" cy="8" r="3" fill="#ffdd44" opacity="0.7"/></svg>`,
+      unique:`<svg width="42" height="38" viewBox="0 0 42 38" style="${glow}"><defs><linearGradient id="hug" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffee88"/><stop offset="100%" stop-color="#886600"/></linearGradient></defs><ellipse cx="21" cy="32" rx="19" ry="5.5" fill="#886600"/><rect x="6" y="10" width="30" height="22" rx="14" fill="url(#hug)"/><rect x="8" y="8" width="26" height="15" rx="12" fill="#ccaa33"/><rect x="10" y="6" width="22" height="11" rx="10" fill="#eedd55"/><rect x="20" y="2" width="2" height="11" rx="1" fill="#ffffff"/><circle cx="21" cy="7" r="3.5" fill="#ffffff" opacity="0.6"/><rect x="4" y="14" width="5" height="9" rx="2.5" fill="#ccaa33"/><rect x="33" y="14" width="5" height="9" rx="2.5" fill="#ccaa33"/></svg>`,
+      legend:`<svg width="44" height="40" viewBox="0 0 44 40" style="${glow}"><defs><linearGradient id="hlg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff9999"/><stop offset="100%" stop-color="#880000"/></linearGradient></defs><ellipse cx="22" cy="34" rx="20" ry="5.5" fill="#880000"/><rect x="6" y="10" width="32" height="24" rx="15" fill="url(#hlg)"/><rect x="8" y="8" width="28" height="16" rx="13" fill="#cc3333"/><rect x="10" y="6" width="24" height="12" rx="11" fill="#ee5555"/><rect x="21" y="1" width="2" height="12" rx="1" fill="#ffdd44"/><circle cx="22" cy="6" r="4" fill="#ffdd44" opacity="0.65"/><rect x="3" y="13" width="6" height="11" rx="3" fill="#cc2222"/><rect x="35" y="13" width="6" height="11" rx="3" fill="#cc2222"/><circle cx="13" cy="24" r="2" fill="#ff9999" opacity="0.5"/><circle cx="31" cy="24" r="2" fill="#ff9999" opacity="0.5"/></svg>`,
+    },
+    armor:{
+      normal:`<svg width="42" height="34" viewBox="0 0 42 34" style="${glow}"><rect x="8" y="2" width="26" height="28" rx="4" fill="#888" stroke="#666" stroke-width="1"/><rect x="11" y="5" width="20" height="22" rx="3" fill="#999"/><rect x="2" y="4" width="8" height="14" rx="4" fill="#777"/><rect x="32" y="4" width="8" height="14" rx="4" fill="#777"/></svg>`,
+      rare:`<svg width="42" height="34" viewBox="0 0 42 34" style="${glow}"><rect x="7" y="2" width="28" height="28" rx="4" fill="#335599" stroke="#4488cc" stroke-width="1.5"/><rect x="10" y="5" width="22" height="22" rx="3" fill="#4477bb"/><rect x="1" y="4" width="9" height="14" rx="4" fill="#335599"/><rect x="32" y="4" width="9" height="14" rx="4" fill="#335599"/><rect x="20" y="7" width="2" height="18" fill="#88bbff" opacity="0.6"/><line x1="10" y1="16" x2="32" y2="16" stroke="#88bbff" stroke-width="1" opacity="0.5"/></svg>`,
+      uncommon:`<svg width="44" height="36" viewBox="0 0 44 36" style="${glow}"><rect x="7" y="2" width="30" height="30" rx="4" fill="#333399" stroke="#8888ee" stroke-width="2"/><rect x="10" y="5" width="24" height="24" rx="3" fill="#5555aa"/><rect x="1" y="4" width="9" height="16" rx="4" fill="#4444aa"/><rect x="34" y="4" width="9" height="16" rx="4" fill="#4444aa"/><rect x="21" y="7" width="2" height="20" fill="#aaaaff" opacity="0.6"/><polygon points="22,10 18,18 22,15 26,18" fill="#aaaaff" opacity="0.5"/></svg>`,
+      epic:`<svg width="46" height="38" viewBox="0 0 46 38" style="${glow}"><defs><linearGradient id="aeg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#bb88ee"/><stop offset="100%" stop-color="#4422aa"/></linearGradient></defs><rect x="7" y="2" width="32" height="32" rx="5" fill="url(#aeg)" stroke="#aa66ff" stroke-width="2"/><rect x="10" y="5" width="26" height="26" rx="4" fill="#7744cc" opacity="0.7"/><rect x="1" y="4" width="10" height="18" rx="5" fill="#6633bb"/><rect x="35" y="4" width="10" height="18" rx="5" fill="#6633bb"/><rect x="22" y="7" width="2" height="22" fill="#ddaaff" opacity="0.7"/><polygon points="23,10 18,19 23,16 28,19" fill="#ffdd44" opacity="0.6"/></svg>`,
+      unique:`<svg width="48" height="40" viewBox="0 0 48 40" style="${glow}"><defs><linearGradient id="aug" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffee88"/><stop offset="100%" stop-color="#885500"/></linearGradient></defs><rect x="7" y="2" width="34" height="34" rx="5" fill="url(#aug)" stroke="#ffcc22" stroke-width="2.5"/><rect x="10" y="5" width="28" height="28" rx="4" fill="#cc9900" opacity="0.6"/><rect x="1" y="4" width="10" height="20" rx="5" fill="#aa7700"/><rect x="37" y="4" width="10" height="20" rx="5" fill="#aa7700"/><rect x="23" y="7" width="2" height="24" fill="#ffee99" opacity="0.7"/><polygon points="24,9 18,20 24,17 30,20" fill="white" opacity="0.5"/><circle cx="24" cy="25" r="3" fill="#ffee44" opacity="0.7"/></svg>`,
+      legend:`<svg width="50" height="42" viewBox="0 0 50 42" style="${glow}"><defs><linearGradient id="alg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff9999"/><stop offset="50%" stop-color="#ff2222"/><stop offset="100%" stop-color="#770000"/></linearGradient></defs><rect x="7" y="2" width="36" height="36" rx="6" fill="url(#alg)" stroke="#ff5555" stroke-width="3"/><rect x="10" y="5" width="30" height="30" rx="5" fill="#cc1111" opacity="0.6"/><rect x="1" y="4" width="11" height="22" rx="5" fill="#aa0000"/><rect x="38" y="4" width="11" height="22" rx="5" fill="#aa0000"/><rect x="24" y="7" width="2" height="26" fill="#ffaaaa" opacity="0.7"/><polygon points="25,9 18,22 25,18 32,22" fill="#ffdd44" opacity="0.55"/><circle cx="25" cy="28" r="3.5" fill="#ff5555"/><circle cx="15" cy="15" r="2" fill="#ff9999" opacity="0.5"/><circle cx="35" cy="15" r="2" fill="#ff9999" opacity="0.5"/></svg>`,
+    },
+  };
+  const shapeData=svgs[shape];
+  if(!shapeData)return `<svg width="28" height="36" viewBox="0 0 28 36"><rect x="8" y="4" width="12" height="28" rx="3" fill="${gc}" opacity="0.5"/></svg>`;
+  return shapeData[gradeId]||shapeData['normal']||'';
+}
+
+/* ── JOB GACHA CARDS render ── */
+function renderJobGachaCards(){
+  if(!G)return;
+  const jobMap={warrior:WARRIOR_WEAPONS,mage:MAGE_WEAPONS,archer:ARCHER_WEAPONS};
+  const myJob=G.job||'warrior';
+  const j=JOBS[myJob];
+  const grid=document.getElementById('gacha-grid-main');
+  if(!grid)return;
+  const jobPityKey='weapon_'+myJob;
+  if(!G.pity)G.pity={};
+  const pv=G.pity[jobPityKey]||0;
+  grid.innerHTML=`
+    <div class="gacha-card" style="border:1px solid ${j.color}33">
+      <div class="gacha-icon">${j.icon}</div>
+      <div class="gacha-name">${j.name} 전용 무기 가챠</div>
+      <div class="gacha-cost" style="color:${j.color}">💎 100개 / 회</div>
+      <div class="rate-row"><span>노말</span><span style="color:#888">35%</span></div>
+      <div class="rate-row"><span>레어</span><span style="color:#4488cc">25%</span></div>
+      <div class="rate-row"><span>희귀</span><span style="color:#5555cc">18%</span></div>
+      <div class="rate-row"><span>에픽</span><span style="color:var(--purple)">12%</span></div>
+      <div class="rate-row"><span>유니크</span><span style="color:var(--gold)">7%</span></div>
+      <div class="rate-row"><span>레전드</span><span style="color:var(--red)">3%</span></div>
+      <button class="pull-btn pb1" onclick="pull('weapon_${myJob}',1)">1회 뽑기 💎100</button>
+      <button class="pull-btn pb2" onclick="pull('weapon_${myJob}',10)">10회 뽑기 💎950</button>
+      <div class="pity-bar-wrap">
+        <div class="pity-label"><span>천장</span><span><span id="pity-weapon_${myJob}">${pv}</span>/100</span></div>
+        <div class="pity-bar"><div class="pity-fill" id="pf-weapon_${myJob}" style="width:${Math.min(pv,100)}%"></div></div>
+      </div>
+    </div>`;
+}
+
 function renderAll(){
   updateHeroUI();renderZones();renderQuests();renderMiniQuest();renderCheckin();
   renderBattleEquip();renderMaterials();updateEquipStats();updateCharSVG();updateBtns();
+  renderJobGachaCards();
 }
 </script>
 </body>

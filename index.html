@@ -388,7 +388,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <div style="display:flex;flex-direction:column;gap:10px">
         <div class="panel">
           <div style="font-size:15px;font-weight:700;margin-bottom:2px" id="zone-title">🌲 어두운 숲</div>
-          <div style="font-size:11px;color:var(--text2);margin-bottom:10px">권장 Lv.1~10 · 오늘 입장 <span id="entry-cnt">0</span>/10회</div>
+          <div style="font-size:11px;color:var(--text2);margin-bottom:10px">권장 Lv.1~10</div>
           <div class="battle-stage" id="battle-stage">
             <span class="mon-emoji" id="mon-emoji">❓</span>
             <div style="font-size:14px;font-weight:600;text-align:center" id="mon-name">전투 준비 중...</div>
@@ -884,7 +884,7 @@ async function loadData(u){
       if(!G.hero.mp){G.hero.mp=100;G.hero.maxMp=100;}
       const today=new Date().toDateString();
       if(G.lastCheckin!==today){
-        G.checkedIn=false;G.entryCount=0;
+        G.checkedIn=false;
         Object.keys(G.questDone).forEach(k=>{if(k.startsWith('q_'))delete G.questDone[k];});
         G.questProg={kills:0,clears:0,eliteKills:0,bossKills:0};
       }
@@ -1024,12 +1024,10 @@ function calcDef(){return G.stats.def+Object.values(G.equipBonus).reduce((a,b)=>
 window.enterDungeon=()=>{
   if(!G){showToast('게임 데이터 오류. 새로고침 해주세요.');return;}
   if(inBattle){addLog('이미 전투 중입니다! 공격하거나 도망치세요.');return;}
-  if(G.entryCount>=10){addLog('오늘 던전 입장 횟수를 모두 사용했습니다! (내일 초기화)');return;}
   const zone=ZONES[G.zoneIdx];
   if(!zone||!zone.monsters||zone.monsters.length===0){
-    addLog('\uc774 구역은 아직 준비 중입니다! 다른 구역을 선택하세요.');return;
+    addLog('이 구역은 아직 준비 중입니다! 다른 구역을 선택하세요.');return;
   }
-  G.entryCount++;
   inBattle=true;
   monster=null;
   updateBtns();
@@ -1470,7 +1468,7 @@ function updateHeroUI(){
   document.getElementById('r-boss').textContent=G.bossKills;
   document.getElementById('r-clears').textContent=G.clears;
   document.getElementById('r-elite').textContent=G.eliteKills;
-  document.getElementById('entry-cnt').textContent=G.entryCount;
+  // entry count removed
   if(G.statPts>0){
     document.getElementById('stat-pts-area').style.display='block';
     document.getElementById('pts-cnt').textContent=G.statPts;
@@ -1625,7 +1623,7 @@ function renderMaterials(){
 
 function updateBtns(){
   const be=document.getElementById('btn-enter');const ba=document.getElementById('btn-attack');const bf=document.getElementById('btn-flee');
-  if(be)be.disabled=inBattle||G.entryCount>=10;if(ba)ba.disabled=!inBattle;if(bf)bf.disabled=!inBattle;
+  if(be)be.disabled=inBattle;if(ba)ba.disabled=!inBattle;if(bf)bf.disabled=!inBattle;
 }
 
 function addLog(msg,cls=''){
